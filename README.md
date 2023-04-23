@@ -7,7 +7,6 @@ This repository contains a set of implementations that permeate the most diverse
 
 ## Table Of Contents
 
-- [Computer Vision](https://github.com/paulosantosneto/nns_for_everything/computer_vision)
-- [Natural Language Processing](https://github.com/paulosantosneto/nns_for_everything/natural_language_processing)
-- [Geometric Deep Learning](https://github.com/paulosantosneto/nns_for_everything/geometric_deep_learning)
+- [Computer Vision](https://github.com/paulosantosneto/nns_for_everything/computer_vision/)
+- [Natural Language Processing](https://github.com/paulosantosneto/nns_for_everything/natural_language_processing/)
 
