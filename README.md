@@ -1,12 +1,17 @@
-# Neural Networks for Everything
+# Pytorch for Object Detection
 
-This repository contains a set of implementations that permeate the most diverse tasks in deep learning. The idea is, in addition to making the commented codes available, also to provide a brief explanation of such architectures.
+This repository focuses on my implementations of the most relevant articles in the field of object detection. Feel free to explore the codes and make pull requests if you find any errors.
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Table Of Contents
+## Architectures
 
-- [Computer Vision](https://github.com/paulosantosneto/nns-for-everything/tree/main/computer_vision/)
-- [Natural Language Processing](https://github.com/paulosantosneto/nns-for-everything/tree/main/natural_language_processing/)
+- R-CNN
+- Fast R-CNN
+- Faster R-CNN
+- YOLO
+- HRDNet
+- DETR
+- ViT
 
