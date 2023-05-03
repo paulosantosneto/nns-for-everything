@@ -7,7 +7,7 @@ This repository focuses on my implementations of the most relevant articles in t
 
 ## Architectures
 
-- R-CNN
+- [R-CNN](https://github.com/paulosantosneto/object-detection-architectures/tree/main/RCNN)
 - Fast R-CNN
 - Faster R-CNN
 - YOLO

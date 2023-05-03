@@ -1,6 +1,7 @@
 import numpy as np
 from typing import Optional
 import torch
+import os
 
 def assert_input_array(bbox):
     
@@ -9,14 +10,36 @@ def assert_input_array(bbox):
     except AssertionError as e:
         e.args += ('length isn ot compatible', 'type of data is not compatible')
 
+def find_dirs(args: dict):
+    
+    ROOT = args.data_root_dir
+    paths = {}
+
+    if not os.path.exists(ROOT + '/train'):
+        raise Exception('Training directory not found!')
+    if not os.path.exists(ROOT + '/test'):
+        raise Exception('Test directory not found!')
+    if not os.path.exists(ROOT + '/val') and args.validation_flag:
+        raise Exception('Validation directory not found!')
+
+    paths['train'] = ROOT + 'train/'
+    paths['test'] = ROOT + 'val/'
+    paths['val'] = ROOT + 'test/'
+    paths['train_images'] = ROOT + 'train/images/'
+    paths['train_labels'] = ROOT + 'train/labels/'
+    paths['test_images'] = ROOT + 'test/images/'
+    paths['test_labels'] = ROOT + 'test/labels/'
+
+    return paths
+
 def IOU(bbox1: np.ndarray, bbox2: np.ndarray) -> float:
     """
     Calculate intersection over union between two bounding boxes.
 
-    @param bbox1: bounding boxes 1 [x1, y1, x2, y2].
-    @param bbox2: bounding boxes 2 [x1, y1, x2, y2].
-    @returns: porcentage of intersection.
-    @raises AssertionError: format is not compatible.
+    :param bbox1: bounding boxes 1 [left_x, left_y, right_x, right_y].
+    :param bbox2: bounding boxes 2 [left_x, left_y, right_x, right_y].
+    :returns: porcentage of intersection.
+    :raises AssertionError: format is not compatible.
     """
     
     # Verify format of bboxes
