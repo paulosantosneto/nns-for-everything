@@ -20,30 +20,38 @@ sys.path.append('..')
 from utils.visualization import plot_bboxes 
 from utils.utils import find_dirs
 
-T = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Resize(size=[224, 224]),
-        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
-        ])
-
 def train(args, dirs):
     
+    # preprocessing train, test and validation datasets
+
     pre_train_ds = PreprocessingDataset(imgs_dir=dirs['train_images'], annotations_dir=dirs['train_labels'])
-
-    fpath_train = pre_train_ds.imgs_path
-
     pre_test_ds = PreprocessingDataset(imgs_dir=dirs['test_images'], annotations_dir=dirs['test_labels'])
+
+    fpath_train, fpath_test = pre_train_ds.imgs_path, pre_test_ds.imgs_path
+
+    if args.validation_flag:
+        pre_val_ds = PreprocessingDataset(imgs_dir=dirs['val_images'], annotations_dir=dirs['val_labels'])
+        fpath_val = pre_val_ds.imgs_path
+
+    label2idx, idx2label = pre_train_ds.label2idx, pre_train_ds.idx2label
     
-    fpath_test = pre_test_ds.imgs_path
+    # Transform dataset to tensors units
 
-    gtboxes, gtlabels, region_labels, region_bboxes, region_diffs = best_regions(pre_train_ds)
+    train_ds = MyDataset(fpath_train, *best_regions(pre_train_ds, mode='train'), label2idx, idx2label)
+    
+    # DataLoader for train, test and validation
 
-    train_ds = MyDataset(fpath_train, pre_train_ds, gtboxes, gtlabels, region_bboxes, region_labels, region_diffs)
+    train_dl = DataLoader(train_ds, batch_size=1, shuffle=False, collate_fn=train_ds.collate_fn, drop_last=False)
+    
+    for i, batch in enumerate(iter(train_dl)):
+        print(batch)
+        break
+    #cv2.imwrite('testecrop.jpg', crop_regions[0])
+    """    
+    gtboxes, gtlabels, region_labels, region_bboxes, region_diffs = best_regions(pre_test_ds, mode='test')
 
-    gtboxes, gtlabels, region_labels, region_bboxes, region_diffs = best_regions(pre_test_ds)
-
-    test_ds = MyDataset(fpath_test, pre_test_ds, gtboxes, gtlabels, region_bboxes, region_labels, region_diffs)
-
+    test_ds = MyDataset(fpath_test,  gtboxes, gtlabels, region_bboxes, region_labels, region_diffs)
+    """
     #img, bboxes, classes, path = pre_train_ds[10]
     #print(bboxes)
     #img = img[:, :, ::-1]

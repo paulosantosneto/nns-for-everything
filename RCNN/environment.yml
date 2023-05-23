@@ -1,0 +1,9 @@
+name: rcnn-model
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - python==3.10.9
+  - pip
+  

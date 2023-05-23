@@ -6,7 +6,6 @@ import matplotlib.patches as patches
 import torch
 from torchvision import transforms
 import cv2
-import pyshine as ps
 
 def preprocessing_img(img: list):
     invTrans = transforms.Compose([ transforms.Normalize(mean = [ 0., 0., 0. ],
